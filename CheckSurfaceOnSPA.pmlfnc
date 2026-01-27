@@ -1,0 +1,54 @@
+-------------------------------------------------------------------
+--
+--  Copyright 2014 to current year. AVEVA Solutions Limited and its subsidiaries. All rights reserved in original code only.
+--
+--  File:            CheckSurfaceOnSPA.pmlfnc
+--  Author:          miwon seo
+--  Created:         11-11-2025
+--
+--  Description:  Check surface on s p a
+--
+------------------------------------------------------------------------
+define function !!CheckSurfaceOnSPA(!spaDbref is DBREF, !surface is DBREF) is BOOLEAN  
+  !spaProfile = !!createProfileFromSpa(!spaDbref)
+  --!spaProfile.draw(1,1,2)
+  
+  !rsfIns = !!collectAllFor('RSFINS', '', !surface)
+  !pface = !rsfIns[1].rwsref
+  handle any    
+    return false
+  endhandle
+  
+  !pfedgeArr = !!collectAllFor('PFEDGE', '', !pface)
+  handle any
+    return false
+  endhandle
+  
+  !lineArr = object ARRAY()
+  do !pfedge values !pfedgeArr
+    !pfppos1 = !pfedge.edsref.pfppos
+    !pos1 = object POSITION('X $!pfppos1[1] Y $!pfppos1[2] Z $!pfppos1[3] WRT $!surface') 
+    
+    !pfppos2 = !pfedge.ederef.pfppos
+    !pos2 = object POSITION('X $!pfppos2[1] Y $!pfppos2[2] Z $!pfppos2[3] WRT $!surface') 
+        
+    !line= object LINE(!pos1, !pos2)    
+    !lineArr.append(!line)
+  enddo
+  
+  --TOP, DOWN check
+  !profile= object PROFILE(object POSITION('X 0 Y 0 Z 0'), object Orientation('Y is Y and Z is Z'), !lineArr)
+  !profile.close()
+  q var !profile.isClosed()
+  !profile.draw(1,1,2)
+  q var !profile.pl
+  
+  do !line values !lineArr    
+    !intersectionArr = !spaProfile.intersections(!line)
+    if !intersectionArr.set() and !intersectionArr.size().gt(0) then      
+      return true
+    endif
+  enddo  
+  return false
+    
+endfunction
