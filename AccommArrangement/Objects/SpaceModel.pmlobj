@@ -1,0 +1,25 @@
+-------------------------------------------------------------------
+--
+--  Copyright 2014 to current year. AVEVA Solutions Limited and its subsidiaries. All rights reserved in original code only.
+--
+--  File:            SpaceModel.pmlobj
+--  Author:          miwon seo
+--  Created:         03-02-2026
+--
+--  Description:  Space model
+--
+------------------------------------------------------------------------
+define object SPACEMODEL
+  -- object members
+endobject
+
+----------------------------------------------------------------------
+--
+-- Method:      .SpaceModel
+--
+-- Description: Constructor method
+--
+----------------------------------------------------------------------
+define method .SpaceModel()
+  
+endmethod

@@ -1,0 +1,25 @@
+-------------------------------------------------------------------
+--
+--  Copyright 2014 to current year. AVEVA Solutions Limited and its subsidiaries. All rights reserved in original code only.
+--
+--  File:            RoomAssignment.pmlobj
+--  Author:          miwon seo
+--  Created:         03-02-2026
+--
+--  Description:  Room assignment
+--
+------------------------------------------------------------------------
+define object ROOMASSIGNMENT
+  -- object members
+endobject
+
+----------------------------------------------------------------------
+--
+-- Method:      .RoomAssignment
+--
+-- Description: Constructor method
+--
+----------------------------------------------------------------------
+define method .RoomAssignment()
+  
+endmethod
